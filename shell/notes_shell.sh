@@ -235,3 +235,74 @@ p cola as linhas
 
 Como buscar uma palavras no Vi
 Para pesquisar uma palavra no Vi/Vim, basta pressionar as teclas / (barra) ou ? (ponto de interrogação) e depois escrever a palavra que você está buscando.
+
+--------------------------
+Geração de Logs
+--------------------------
+#log de forma simples
+./script >> log.out
+
+#log saida padrão e saida de erro
+./script >> log.out 2>&1
+
+#log no arquivo e na tela
+./script | tee -a log.out
+-a = ">>"
+
+#colocar o comando exec dentro do script, ele irá jogar toda a saida para um arquivo especificado
+exec 1>> $LOG
+exec 2&1
+ou
+exec 1>> (tee -a "$LOG") # para jogar na tela tbm as informações
+
+###rsyslog
+facility = O criador da mensagem
+local0 a local7 = é de uso do administrador linux
+niveis de prioridade = debug, info, notive, warning, warn, err, error, criti, alert emerg, panic
+tipos de log = auth, authpriv.none, cron, daemon, kern, lpr, main, user
+
+### usuando o local0 para gerar script
+local0.* /var/log/script.log 
+local2.* /var/log/script2.log
+##chown syslog:adm "nome do arquivo"
+
+##enviando mensangem para o arquivo de log
+logger -p local0.err "Teste de mensagem de erro"
+logger -p local0.warn "Teste de warn mensagem de erro"
+## acima como estar com asterico ele vai enviar todas as mensagens de erro... para receber so mensagem do tipo warn seria assim "local0.warn"
+## é possivel por tag
+logger -p local0.warn -t [tag escolhida]"Teste de warn mensagem de erro"
+## aducionando rsyslog a uma arquivo qualquer
+echo "O texto que será escrito dentro do arquivo via rsyslog" | logger -p local0.warn -t [$0]
+ou
+logger -p local0.warn -t [$0] "O texto que será escrito dentro do arquivo via rsyslog" 
+
+## usando logger com tee... para jogar na tela tbm
+echo "saida de texto" > tee -a > (logger -p local0.warn -t [$0])
+
+
+---------------------------------
+comando de email - mail
+---------------------------------
+apt install bsd-mailx postfix -y
+
+##enviando email
+mail -s "assunto" marcilioramo@gmail.com < echo "Teste de email"
+
+##outras opções de email
+mutt
+sendemail
+
+
+
+
+
+
+
+
+
+
+
+
+
+
