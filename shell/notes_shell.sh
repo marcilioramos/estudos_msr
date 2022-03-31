@@ -154,3 +154,84 @@ vim /etc/init.d/after.local
 /etc/init.d/boot.lvm reload
 mount -a
 
+-------------------------------
+CentOS 7 – Adicionar Segundo IP
+-------------------------------
+
+
+Até o CentOS 6, nós tínhamos o costume de adicionar um segundo IP, copiando o arquivo da interface (eth0 -> eth0:1).
+
+Após instalar o CentOS 7 em uma nova máquina eu tive esta surpresa! O procedimento ficou mais fácil ainda!É só adicionar no mesmo arquivo IPADDR1 e NETMASK1 ou qualquer outro informações ficando com sufixos finais iguais.
+Veja um exemplo abaixo:
+
+root@orion /]# cat /etc/sysconfig/network-scripts/ifcfg-ens32
+TYPE=Ethernet
+BOOTPROTO=none
+DEFROUTE=yes
+IPV4_FAILURE_FATAL=no
+IPV6INIT=no
+IPV6_AUTOCONF=yes
+IPV6_DEFROUTE=yes
+IPV6_PEERDNS=yes
+IPV6_PEERROUTES=yes
+IPV6_FAILURE_FATAL=no
+NAME=eth0
+UUID=323cf910-4aa2-4794-6b2a-bb8908d09dad
+DEVICE=ens32
+ONBOOT=yes
+DNS1=8.8.8.8
+IPADDR=172.17.50.128 #1° IP
+IPADDR1=192.168.190.1 #2° IP
+NETMASK=255.255.255.0 #1ª Mascara
+NETMASK1=255.255.255.0 #2ª Mascara
+PREFIX=24
+GATEWAY=172.17.50.1
+
+-------------------------------
+dois ips debian - config rede debian - add novo IP
+-------------------------------
+auto eth0:1
+iface eth0:1 inet static
+name Ethernet alias LAN card
+address 192.168.0.2
+netmask 255.255.255.0
+broadcast 192.168.0.255
+network 192.168.0.0
+
+
+
+
+-----------------------------------------------
+#dar privilegios para acesso externo mysql
+----------------------------------------------
+
+GRANT ALL ON zabbix.* TO ‘zabbix’@’%’ IDENTIFIED BY ‘sescab777’ WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+
+skip-grant-tables
+
+mysql -e "create database zabbix character set utf8 collate utf8_bin"
+
+
+CREATE USER 'zabbix'@'%' IDENTIFIED BY 'S4scab777!!!';
+grant all privileges on zabbix.* to 'zabbix'@'%' with grant option";
+FLUSH PRIVILEGES;
+quit;
+
+https://verdanadesk.com/aprenda-a-instalar-o-zabbix-server-passo-a-passo/
+
+----------------------------
+Comandos do VI ou vim
+----------------------------
+
+:$ ultima linha
+:!"comando externo"
+
+dd recorta uma linha
+d4d recorta 4 linhas
+y copia linhas
+y4y copia 4 linhas
+p cola as linhas
+
+Como buscar uma palavras no Vi
+Para pesquisar uma palavra no Vi/Vim, basta pressionar as teclas / (barra) ou ? (ponto de interrogação) e depois escrever a palavra que você está buscando.
