@@ -294,10 +294,10 @@ mutt
 sendemail
 
 
-
-
-
-
+---------------------
+DEBU
+---------------------
+trap read DEBUG
 
 
 
