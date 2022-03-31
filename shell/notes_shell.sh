@@ -26,3 +26,27 @@ netstat -lntp
 
 ##filtrar palavra shell zabbix
 cat /etc/zabbix/zabbix_agent2.conf | grep -Ev '[:blank]*#|^[:blank]*$'
+
+
+#Variaveis de ambiente
+
+#Exporta uma variavel e a deixe acessivel globalmente para todos os shells
+export 
+Exemplo: export NOME_DA_VARIAVEL=linux
+
+#set: Mostra todos as veriaveis que estão disponiveis no ambiente (locais e globais)
+
+#saidas shell
+
+echo $?
+#retornará uma saida "0" caso o ultimo comando for sucesso, caso contrário poderá expor uma saída de 1-255
+# no man de cada comando linux tem o exit code e o significado de cada um.
+
+##Entradas de usuario no prompt
+read CURSO
+
+## Assim vc consegue por um contexto antes de digitar o valor da variavel
+read -p "Informe o seu curso: " CURSO
+
+##  Assim vc consegue esconder o que será escrita no prompt
+read -s SEGREDO
