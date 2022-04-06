@@ -205,7 +205,7 @@ network 192.168.0.0
 #dar privilegios para acesso externo mysql
 ----------------------------------------------
 
-GRANT ALL ON zabbix.* TO ‘zabbix’@’%’ IDENTIFIED BY ‘sescab777’ WITH GRANT OPTION;
+GRANT ALL ON zabbix.* TO ‘zabbix’@’%’ IDENTIFIED BY ‘SENHA’ WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 
 skip-grant-tables
@@ -213,7 +213,7 @@ skip-grant-tables
 mysql -e "create database zabbix character set utf8 collate utf8_bin"
 
 
-CREATE USER 'zabbix'@'%' IDENTIFIED BY 'S4scab777!!!';
+CREATE USER 'zabbix'@'%' IDENTIFIED BY 'SENHA';
 grant all privileges on zabbix.* to 'zabbix'@'%' with grant option";
 FLUSH PRIVILEGES;
 quit;
