@@ -299,6 +299,28 @@ DEBU
 ---------------------
 trap read DEBUG
 
+-----------------
+grep
+-----------------
+-i = desconsidera caixa alta e baixa
+-R = recursivo
+grep -iR "palavra" diretorio
+
+----------------------
+reboot e desligamento
+---------------------
+# Primeiro, se você quiser verificar quando o seu computador foi inicializado pela última vez, você pode usar o who comando com o -b sinalize para obter uma data e hora exatas em seu terminal.
+who -b
+
+#Com o last comando que você pode listar sempre que seu sistema for reinicializado.
+last -x reboot
+
+last -x shutdown
+
+#Finalmente, quando você quiser saber há quanto tempo seu computador está funcionando, você pode usar o uptime comando para descobrir. 
+#Combine-o com o -p sinalize para obter uma saída de leitura muito mais fácil.
+uptime -p
+
 
 
 
