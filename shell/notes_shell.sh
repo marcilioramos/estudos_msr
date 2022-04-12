@@ -322,6 +322,27 @@ last -x shutdown
 uptime -p
 
 
+Run shell script on gist
+Shells that support process substitution such as bash and zsh allow to run shell script on gist as follows.
+
+# With curl:
+bash <(curl -sL ${GIST_URL}) args...
+
+# With wget:
+bash <(wget -nv -O - ${GIST_URL}) args...
+
+# If wget-log is generated:
+# https://bugs.launchpad.net/ubuntu/+source/wget/+bug/1765690
+bash <(wget -o /dev/null -nv -O - ${GIST_URL}) args...
+For example:
+
+bash <(curl -sL https://gist.githubusercontent.com/mob-sakai/174a32b95572e7d8fdbf8e6f43a528f6/raw/hello.sh) I am mob-sakai!
+
+
+#eliminar linhas comentadas shell linux
+grep -v "^#" arquivo.bkp | sed '/^$/d' > arquivo
+
+
 
 
 
