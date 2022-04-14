@@ -28,13 +28,23 @@ git reflog
 #retornar a uma versão do codigo, vc no caso vai restaurar um commit
 git reset --hard "codigo do commit" (esse codigo está disponivel ao rodar o comando git reflog)
 
+
+###branchens
+### branches são caminhos diferentes para o desenvolvimento do seu código, a padrão é a master.
+
+### lista as branchs disponivel no diretorio
+git branch
+
+###cria uma nova branch
+## essa branch geralmente é usado local onde estão recebando atualizações que ainda não estão sendo testadas
+git branch staging
+
 ##muda a branch em que estão trabalhando 
 git checkout staging
 
-
-###branchens
-## essa branch geralmente é usado local onde estão recebando atualizações que ainda não estão sendo testadas
-## git branch staging
+### como fazer um merger entre branchs?, segue os passos
+git checkout master (mudar para branch que irá receber o merger)
+git merge staging (chama os dados a branch com dados alterados, que irão complementar a branch selecionada acima, com o comando acima)
 
 
 
