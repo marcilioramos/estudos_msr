@@ -1,4 +1,6 @@
+----------------------
 Comando SHELL
+----------------------
 
 #comando para mostrar atributos do SFP
 ethtool --module-info ethX
@@ -52,7 +54,6 @@ read -p "Informe o seu curso: " CURSO
 read -s SEGREDO
 
 
-
 -------------------------------
 LVM + ISCI
 -------------------------------
@@ -73,6 +74,9 @@ sudo vi /etc/iscsi/iscsid.conf
 61 node.session.auth.username = iniciador1 
 62 node.session.auth.password = gai0daeNgu
 
+--------------------------------------------
+ISCI LINUX
+--------------------------------------------
 iscsiadm -m discovery -t sendtargets -p 172.17.52.184 
 172.17.52.184:3260,1 iqn.2019-11.computingforgeeks.com:geekstarget1
 
@@ -80,7 +84,6 @@ iscsiadm -m node --login
 
 iscsiadm -m session -o show 
 
-============================================================
 # mostra as partições, incluse a LUN ISCSI
 fdisk -l
 
@@ -158,7 +161,6 @@ mount -a
 CentOS 7 – Adicionar Segundo IP
 -------------------------------
 
-
 Até o CentOS 6, nós tínhamos o costume de adicionar um segundo IP, copiando o arquivo da interface (eth0 -> eth0:1).
 
 Após instalar o CentOS 7 em uma nova máquina eu tive esta surpresa! O procedimento ficou mais fácil ainda!É só adicionar no mesmo arquivo IPADDR1 e NETMASK1 ou qualquer outro informações ficando com sufixos finais iguais.
@@ -197,8 +199,6 @@ address 192.168.0.2
 netmask 255.255.255.0
 broadcast 192.168.0.255
 network 192.168.0.0
-
-
 
 
 -----------------------------------------------
@@ -280,7 +280,6 @@ logger -p local0.warn -t [$0] "O texto que será escrito dentro do arquivo via r
 ## usando logger com tee... para jogar na tela tbm
 echo "saida de texto" > tee -a > (logger -p local0.warn -t [$0])
 
-
 ---------------------------------
 comando de email - mail
 ---------------------------------
@@ -292,7 +291,6 @@ mail -s "assunto" marcilioramo@gmail.com < echo "Teste de email"
 ##outras opções de email
 mutt
 sendemail
-
 
 ---------------------
 DEBU
@@ -338,9 +336,15 @@ For example:
 
 bash <(curl -sL https://gist.githubusercontent.com/mob-sakai/174a32b95572e7d8fdbf8e6f43a528f6/raw/hello.sh) I am mob-sakai!
 
-
+--------------------------------------------
 #eliminar linhas comentadas shell linux
+--------------------------------------------
 grep -v "^#" arquivo.bkp | sed '/^$/d' > arquivo
+
+----------------------
+##flush dns
+----------------------
+resolvectl flush-caches
 
 
 
