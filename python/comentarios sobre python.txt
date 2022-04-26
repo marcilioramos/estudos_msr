@@ -1,0 +1,2 @@
+## Funções Built-in
+São funções nativas da linguagem python que não precisam ser importadas de outras bibliotecas.
