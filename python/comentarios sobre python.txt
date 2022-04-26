@@ -1,2 +1,10 @@
 ## Funções Built-in
 São funções nativas da linguagem python que não precisam ser importadas de outras bibliotecas.
+
+## importando bibliotecos
+import NOME-DA-BIBLIOTECA
+-- ou apenas uma função da biblioteca
+from NOME-DA-BIBLIOTECA import NOME-DA-FUNCAO
+
+##Como importar bibliotecas para o ambiente colab
+!pip install "nome da biblioteca"
