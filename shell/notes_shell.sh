@@ -1,11 +1,13 @@
 ----------------------
-Comando SHELL
+###Comando SHELL
 ----------------------
-
+~~~
 #comando para mostrar atributos do SFP
 ethtool --module-info ethX
+~~~
 
-#IPTABLES
+###IPTABLES
+~~~
 ##listar regras
 iptables -nL
 
@@ -20,30 +22,44 @@ iptables -A INPUT -p tcp -s 187.45.177.70 --dport 443 -m state --state NEW,ESTAB
 iptables -A INPUT -p tcp -s 0.0.0.0/0 --dport 43211 -m state --state NEW,ESTABLISHED -m comment --comment "cloudbackup" -j ACCEPT
 
 iptables -A INPUT -p tcp -s 0.0.0.0/0 --dport 4443 -m state --state NEW,ESTABLISHED -m comment --comment "tunnelssh" -j ACCEPT
+~~~
 
-#mostrar usuarios logados no servidor
+~~~
+##mostrar usuarios logados no servidor
+w
+~~~
 
+~~~
 ## mostra portas abertas
 netstat -lntp
+~~~
 
-##filtrar palavra shell zabbix
+~~~
+## GREP = filtrar palavra shell zabbix
 cat /etc/zabbix/zabbix_agent2.conf | grep -Ev '[:blank]*#|^[:blank]*$'
+~~~
 
-
+~~~
 #Variaveis de ambiente
 
 #Exporta uma variavel e a deixe acessivel globalmente para todos os shells
 export 
 Exemplo: export NOME_DA_VARIAVEL=linux
+~~~
 
+~~~
 #set: Mostra todos as veriaveis que estão disponiveis no ambiente (locais e globais)
+~~~
 
+~~~
 #saidas shell
 
 echo $?
 #retornará uma saida "0" caso o ultimo comando for sucesso, caso contrário poderá expor uma saída de 1-255
 # no man de cada comando linux tem o exit code e o significado de cada um.
+~~~
 
+~~~
 ##Entradas de usuario no prompt
 read CURSO
 
@@ -52,11 +68,12 @@ read -p "Informe o seu curso: " CURSO
 
 ##  Assim vc consegue esconder o que será escrita no prompt
 read -s SEGREDO
+~~~
 
 
--------------------------------
-LVM + ISCI
--------------------------------
+### LVM + ISCI
+
+~~~
 Config ISCSI CENTOS + Formatação + configuração LVM
 
 sudo  dnf -y install iscsi-initiator-utils
@@ -136,7 +153,6 @@ lvextend -L +100%FREE /media/vol1/
 resize2fs  /media/vol1/
 mount /dev/volume1/LV1 /media/vol1/
 
-
 -------------------------
 fstab
 -------------------------
@@ -156,11 +172,12 @@ vim /etc/init.d/after.local
 #!/bin/bash
 /etc/init.d/boot.lvm reload
 mount -a
+~~~
 
--------------------------------
-CentOS 7 – Adicionar Segundo IP
--------------------------------
 
+### CentOS 7 – Adicionar Segundo IP
+
+~~~
 Até o CentOS 6, nós tínhamos o costume de adicionar um segundo IP, copiando o arquivo da interface (eth0 -> eth0:1).
 
 Após instalar o CentOS 7 em uma nova máquina eu tive esta surpresa! O procedimento ficou mais fácil ainda!É só adicionar no mesmo arquivo IPADDR1 e NETMASK1 ou qualquer outro informações ficando com sufixos finais iguais.
@@ -200,6 +217,9 @@ netmask 255.255.255.0
 broadcast 192.168.0.255
 network 192.168.0.0
 
+~~~
+
+~~~
 
 -----------------------------------------------
 #dar privilegios para acesso externo mysql
@@ -220,6 +240,9 @@ quit;
 
 https://verdanadesk.com/aprenda-a-instalar-o-zabbix-server-passo-a-passo/
 
+~~~
+
+~~~
 ----------------------------
 Comandos do VI ou vim
 ----------------------------
@@ -236,6 +259,9 @@ p cola as linhas
 Como buscar uma palavras no Vi
 Para pesquisar uma palavra no Vi/Vim, basta pressionar as teclas / (barra) ou ? (ponto de interrogação) e depois escrever a palavra que você está buscando.
 
+~~~
+
+~~~
 --------------------------
 Geração de Logs
 --------------------------
@@ -280,6 +306,9 @@ logger -p local0.warn -t [$0] "O texto que será escrito dentro do arquivo via r
 ## usando logger com tee... para jogar na tela tbm
 echo "saida de texto" > tee -a > (logger -p local0.warn -t [$0])
 
+~~~
+
+~~~
 ---------------------------------
 comando de email - mail
 ---------------------------------
@@ -291,19 +320,25 @@ mail -s "assunto" marcilioramo@gmail.com < echo "Teste de email"
 ##outras opções de email
 mutt
 sendemail
+~~~
 
+~~~
 ---------------------
 DEBU
 ---------------------
 trap read DEBUG
+~~~
 
+~~~
 -----------------
 grep
 -----------------
 -i = desconsidera caixa alta e baixa
 -R = recursivo
 grep -iR "palavra" diretorio
+~~~
 
+~~~
 ----------------------
 reboot e desligamento
 ---------------------
@@ -318,8 +353,9 @@ last -x shutdown
 #Finalmente, quando você quiser saber há quanto tempo seu computador está funcionando, você pode usar o uptime comando para descobrir. 
 #Combine-o com o -p sinalize para obter uma saída de leitura muito mais fácil.
 uptime -p
+~~~
 
-
+~~~
 Run shell script on gist
 Shells that support process substitution such as bash and zsh allow to run shell script on gist as follows.
 
@@ -336,17 +372,24 @@ For example:
 
 bash <(curl -sL https://gist.githubusercontent.com/mob-sakai/174a32b95572e7d8fdbf8e6f43a528f6/raw/hello.sh) I am mob-sakai!
 
+~~~
+
+~~~
+
 --------------------------------------------
 #eliminar linhas comentadas shell linux
 --------------------------------------------
 grep -v "^#" arquivo.bkp | sed '/^$/d' > arquivo
 
+~~~
+
+~~~
 ----------------------
 ##flush dns
 ----------------------
 resolvectl flush-caches
 
-
+~~~
 
 
 
