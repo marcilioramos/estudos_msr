@@ -1,10 +1,10 @@
-###Comando SHELL
+### Comando SHELL
 ~~~
 #comando para mostrar atributos do SFP
 ethtool --module-info ethX
 ~~~
 
-###IPTABLES
+### IPTABLES
 ~~~
 ##listar regras
 iptables -nL
