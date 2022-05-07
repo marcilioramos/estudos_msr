@@ -1,6 +1,4 @@
-----------------------
 ###Comando SHELL
-----------------------
 ~~~
 #comando para mostrar atributos do SFP
 ethtool --module-info ethX
