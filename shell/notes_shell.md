@@ -146,9 +146,10 @@ umount /media/vol1/
 lvextfend -L +2G /media/vol1/
 
 #Para add todo o espaço livre
-lvextend -L +100%FREE /media/vol1/
-
+lvextend -l +100%FREE /media/vol1/
+# se for ext4 tem que rodar esse comando abaixo para dar um resize
 resize2fs  /media/vol1/
+
 mount /dev/volume1/LV1 /media/vol1/
 
 -------------------------
