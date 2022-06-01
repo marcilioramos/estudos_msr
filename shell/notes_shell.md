@@ -390,7 +390,16 @@ resolvectl flush-caches
 
 ~~~
 
+### RSYNC
+~~~
+rsync -rtvu /origem/ /destino/
+~~~
 
+### Montar SAMBA no linux server
+~~~
+sudo apt-get install cifs-utils
+sudo mount -t cifs -o username=marcilio //10.10.0.2/ADMIN  /home/tmp/
+~~~
 
 
 
