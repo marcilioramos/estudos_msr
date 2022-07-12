@@ -401,6 +401,13 @@ sudo apt-get install cifs-utils
 sudo mount -t cifs -o username=marcilio //10.10.0.2/ADMIN  /home/tmp/
 ~~~
 
+### VirtualBox Nested
+
+~~~
+$ vboxmanage list vms
+$ VBoxManage modifyvm "Ubuntu 20.04 Server" --nested-hw-virt on
+~~~
+
 
 
 
