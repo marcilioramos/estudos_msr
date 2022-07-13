@@ -8,3 +8,14 @@ from NOME-DA-BIBLIOTECA import NOME-DA-FUNCAO
 
 ##Como importar bibliotecas para o ambiente colab
 !pip install "nome da biblioteca"
+
+### Versao do python
+python -V
+
+### Abrir ajuda interativa para ver a documentação das funções
+help()
+
+### mostra o tipo da variavel
+type(pais)
+<class 'str'>
+
