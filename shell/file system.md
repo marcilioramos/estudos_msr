@@ -25,8 +25,31 @@
   -- vgchange = comando usado para ativar o VG criado.
 ~~~
 
-### PV
+### LV
 ~~~
-
-
+1 - lvcreate -L 10G -n alunos vgdata
+  -- -L 10G: tamanho do LV
+  -- -n alunos: tamanho do LV
+  -- vgdata: nome do VG
+  ou
+  - lvcreate -l 100%FREE -n profes vgdata
+  - lscan: para varrer os LVs
+  - lvs: mostra como ele montou com detalhes a estrutura.
+  - lvdisplay: monstra outros detalhes dos LVs
+  
+  - mkfs -t ext4 /dev/vgdata/alunos
+    -- mkfs -t ext4: formata o volume como tipo ext4
+      --- -t ext4: define o volume como do tipo ext4
+    - /dev/vgdata/alunos: volume formatado.
+    
+  - mkdir /alunos
+    -- cria a pasta "alunos"
+  - mount -t ext4 /dev/vgdata/alunos /alunos
+    -- monta a volume na pasta criada.
+    
+  - fstab
+    -- linha fstab
+        --- /dev/vgdata/alunos  /alunos ext4 defaults   0 0
+    -- mount -a v
+      --- monta os volumes descritos no fstab
 ~~~
