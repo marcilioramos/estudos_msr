@@ -53,3 +53,7 @@
     -- mount -a v
       --- monta os volumes descritos no fstab
 ~~~
+
+LV - 
+~~~
+~~~
