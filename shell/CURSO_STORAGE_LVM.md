@@ -108,4 +108,13 @@
       ---- vgdata é o nome do VG
 ~~~
 
+### Recuperando um Volume apagado acidentalmente
+
+~~~
+- vgcfgbackup
+  -- faz o backup do vgdata e outro VG existentes
+
+
+~~~
+
 
