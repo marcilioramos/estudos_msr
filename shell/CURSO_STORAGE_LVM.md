@@ -83,11 +83,7 @@
     --- local onde são guardados os backups dos metadados do LVM
   -- cd /etc/lvm/archive
     --- local onde ficam armazenados todas as informação referentes ao ambiente LVM, organizado por data.
-  -- É possivel mover os dados de um disco danificado usando comando "pvmove"
-    --- pvmove /dev/sddX /dev/sdfX
-         ---- esse disco deve ser criado via "pvcreate", depois extendemos o "VG" com vgextend e depois rodamos o comando acima.
-    --- vgreduce vgdata /dev/sddX
-        ---- vgdata é o nome do VG
+
 ~~~
 
 ### Troubleshoot LVM
@@ -105,6 +101,11 @@
   -- esse parametro "-o" possibilita mostrar apenas o parametro indicado no comando, no caso "+pv_uuid"
 - vgs -P -o +devices
   -- ajuda a identificar discos que estão com problemas
+-- É possivel mover os dados de um disco danificado usando comando "pvmove"
+  --- pvmove /dev/sddX /dev/sdfX
+       ---- esse disco deve ser criado via "pvcreate", depois extendemos o "VG" com vgextend e depois rodamos o comando acima.
+  --- vgreduce vgdata /dev/sddX
+      ---- vgdata é o nome do VG
 ~~~
 
 
