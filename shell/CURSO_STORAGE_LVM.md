@@ -79,5 +79,9 @@
     --- vgreduce: comando para remover uma LV de um VG
   -- pvremove /dev/sdfX
     -- pvremove: comando para remover o PV.
+  -- cd /etc/lvm/backup
+    --- local onde são guardados os backups dos metadados do LVM
+  -- cd /etc/lvm/archive
+    --- local onde ficam armazenados todas as informação referentes ao ambiente LVM, organizado por data.
 
 ~~~
