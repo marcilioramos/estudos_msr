@@ -54,6 +54,30 @@
       --- monta os volumes descritos no fstab
 ~~~
 
-LV - 
+### Snapshots LVM
 ~~~
+1 - Adicione um disco para armazenar esses instataneos
+2 - Formate-o como os demais acima
+3 - criasse um novo PV, com o  nosso disco adicionado
+4 - extendesse o VG com esse novo PV
+  -- vgextend vgdata /dev/sdX1
+    -- vgextend: comando para adicionar novo PV e extender o Volume Group
+    -- "vgdata": nome do Volume group
+    -- "/dev/sdX1": o volume adicionado no VG
+5 - criar o LV para o serviço de snapshot
+  -- lvcreate -s -L 20G -n vgdata-snapshot /dev/vgdata/alunos
+    --- assim será feio o snapshot desse volume lvm
+  -- lvdisplay /dev/vgdata/vgdata-snapshot
+    --- mostra os detalhes desse lv que foi criado
+  -- mkdir /backup
+  -- mount /dev/vgdata/vgdata-snapshot /backup
+    --- monta o snapshot que foi feito do volume
+  -- umount /backup
+  -- lvremove /dev/vgdata/vgdata-snapshot
+    -- lvremove: comanda para remove o snaphost
+  -- vgreduce vgdata /dev/sdfX
+    --- vgreduce: comando para remover uma LV de um VG
+  -- pvremove /dev/sdfX
+    -- pvremove: comando para remover o PV.
+
 ~~~
