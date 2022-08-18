@@ -8,9 +8,9 @@
 
 ### VG
 ~~~
-1 - Adicionasse os discos físicos (PV)
+1 - Adiciona-se os discos físicos (PV)
   - pvscan: Comando para listar os discos fisicos inseridos no S.O.
-2 - Listasse com fdisk -l (para ter certeza que eles foram inseridos)
+2 - Lista-se com fdisk -l (para ter certeza que eles foram inseridos)
 3 - Formatá-os com: fdisk /dev/sda (atentar para marcar o disco como tipo LVM(8e))
 4 - Depois será criado o volume grupo com os PV inseridos.
   - vgcreate: Comando para criar um volume de discos a partir dos discos fisicos (PV) que foram inseridos no S.O.
@@ -58,8 +58,8 @@
 ~~~
 1 - Adicione um disco para armazenar esses instataneos
 2 - Formate-o como os demais acima
-3 - criasse um novo PV, com o  nosso disco adicionado
-4 - extendesse o VG com esse novo PV
+3 - cria-se um novo PV, com o  nosso disco adicionado
+4 - extende-se o VG com esse novo PV
   -- vgextend vgdata /dev/sdX1
     -- vgextend: comando para adicionar novo PV e extender o Volume Group
     -- "vgdata": nome do Volume group
