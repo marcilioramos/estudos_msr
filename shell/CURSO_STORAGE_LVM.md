@@ -153,6 +153,43 @@
 - vgscan ## para att
 - lvcrete -L 7.99G -m1 -n espelho datavg
 - lvs -a -o name,devices,copy_percent datavg (mostrado o processo de sincronização dos discos)
-- lvs --all --segments -o +devices
+- lvs --all -segments -o +devices
+- mkfs -t ext4 /dev/datavg/espelho
+- mkdir /data
+- mount /dev/datavg/espelho /data
+- pvdisplay -m (mostra o ambiente espelhado)
+
+quebrando o mirror
+- lvconvert -m0 datavg/espelho /dev/sdb1
+- lvs -a -o +devices (visualizar os LVs ups)
+- vgreduce datavg /dev/sdb1
+  -- retira o disco do VG
+- vgextend datavg /dev/sdc1
+  -- re-adicionar o disco ao VG
+- lvconvert -m 1 /dev/datavg/espelho
+  -- re-transforma e adicionar o disco ao mirror
+- lvs -a -o +devices (visualizar os LVs ups)
+  
 ~~~
 
+### LVM Stripper
+
+~~~
+aproveitaremos o ambiente anterior, do mirror:
+- pvcreate /dev/sdd1
+- pvcreate /dev/sde1
+- pvcreate /dev/sdf1
+- vgvreate vg01 /dev/sdd1 /dev/sde1 /dev/sdf1
+- vgscan (atualiza a área de metadados)
+- lvcreate -i3 -I4 -L 23.98G -n distribuido vg01
+  -- -i3: 3 discos usando interliving entre eles
+  -- -I4: diz que vai usar cada stripper de 4K
+  -- -L 23.98G: tamanho do volume stripper
+  -- -n: o nome do volume que será criado
+  -- vg01: o nome do volume group
+ - mkfs -t ext4 /dev/vg01/distribuido
+ - mkdir /distribuido
+ - mount /dev/vg01/distribuido /distribuido
+ - lvs -a -o +devices (monitoring)
+ - pvdisplay
+~~~
