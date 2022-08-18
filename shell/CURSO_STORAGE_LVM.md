@@ -144,4 +144,15 @@
   -- nao deve aparecer mais nada
 ~~~
 
+### LVM ESPELHADO
+
+~~~
+- pvcreate /dev/sda1 /dev/sdb1
+- vgcreate datavg /dev/sda1 /dev/sdb1
+- vgs ## para visualizar
+- vgscan ## para att
+- lvcrete -L 7.99G -m1 -n espelho datavg
+- lvs -a -o name,devices,copy_percent datavg (mostrado o processo de sincronização dos discos)
+- lvs --all --segments -o +devices
+~~~
 
