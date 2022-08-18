@@ -112,9 +112,36 @@
 
 ~~~
 - vgcfgbackup
-  -- faz o backup do vgdata e outro VG existentes
+  -- faz o backup dos VGs existentes
+  
+ - simulando
+  -- umount /alunos
+  -- lvs (ja perde o atributo "o" de open)
+  -- lvremove /dev/vgdata/alunos
+  -- lvs (ja nao aparece mais o LV)
+  -- vgcfgrestore vgdata --test -f /etc/lvm/archive/vgdataXXXXX.vg
+    --- test: valida se será possivel fazer a restauração
+  -- vgcfgrestore vgdata -f /etc/lvm/archive/vgdataXXXXX.vg
+  -- lvchange -a y /dev/vgdata/alunos
+    --- -a: ativar
+  -- lvs
+  -- mount /dev/vgdata/alunos
 
 
+~~~
+
+### Removendo todo o ambiente
+
+~~~
+- umont /alunox
+- vim /etc/fstab (apaga as entradas referente aos volumes)
+- lvremove /dev/vgdata/alunos
+- vgremove vgdata
+- pvremove /dev/sdXX
+- pvs
+- vgs
+- lvs
+  -- nao deve aparecer mais nada
 ~~~
 
 
