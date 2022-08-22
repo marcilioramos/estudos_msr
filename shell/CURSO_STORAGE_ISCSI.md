@@ -59,6 +59,16 @@ Segurança:
 - cat /proc/net/bonding/bond0
   -- mostra a interface bond0 é pleno funcionamento, em modo round-robin.
    
+- yum install tagetcli targetd
+
+- targetcli
+- cd backstore/block
+- create server.project /dev/md1
+- ls
+- cd /iscsi
+- create iqn.2019-01.com.hpc.target:tgt1
+- 
+
         
 ~~~
 
