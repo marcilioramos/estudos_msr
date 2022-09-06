@@ -22,6 +22,28 @@ iptables -A INPUT -p tcp -s 0.0.0.0/0 --dport 43211 -m state --state NEW,ESTABLI
 iptables -A INPUT -p tcp -s 0.0.0.0/0 --dport 4443 -m state --state NEW,ESTABLISHED -m comment --comment "tunnelssh" -j ACCEPT
 ~~~
 
+### Liberando porta no firewall XCP-NG
+~~~
+Libere a conexão no firewall do xenserver editando o arquivo /etc/sysconfig/iptables insira as linas abaixo antes dos REJECT caso hajam e salve o arquivo
+
+#########################################################################
+-A RH-Firewall-1-INPUT -p udp -m udp --dport 10050 -j ACCEPT
+-A RH-Firewall-1-INPUT -p tcp -m tcp --dport 10050 -j ACCEPT
+-A RH-Firewall-1-INPUT -p udp -m udp --dport 10051 -j ACCEPT
+-A RH-Firewall-1-INPUT -p tcp -m tcp --dport 10051 -j ACCEPT
+-A RH-Firewall-1-INPUT -p udp -m udp --dport 10050 -j ACCEPT
+-A RH-Firewall-1-INPUT -p tcp -m tcp --dport 10050 -j ACCEPT
+-A RH-Firewall-1-INPUT -p udp -m udp --dport 10051 -j ACCEPT
+-A RH-Firewall-1-INPUT -p tcp -m tcp --dport 10051 -j ACCEPT
+#########################################################################
+Insira as permissões de execução dos serviços no arquivo /etc/services seguindo a ordem das portas no arquivo
+#########################################################################
+# service iptables restart
+#########################################################################
+Se tudo correu dentro do esperado o agente já está habilitado e funcional.
+
+~~~
+
 ~~~
 ##mostrar usuarios logados no servidor
 w
