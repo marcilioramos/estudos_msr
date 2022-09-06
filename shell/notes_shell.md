@@ -23,6 +23,7 @@ iptables -A INPUT -p tcp -s 0.0.0.0/0 --dport 4443 -m state --state NEW,ESTABLIS
 ~~~
 
 ### Liberando porta no firewall XCP-NG
+fonte: http://oinformata.eti.br/wp/instalando-o-zabbix-agent-no-xcp-ng/
 ~~~
 Libere a conexão no firewall do xenserver editando o arquivo /etc/sysconfig/iptables insira as linas abaixo antes dos REJECT caso hajam e salve o arquivo
 
