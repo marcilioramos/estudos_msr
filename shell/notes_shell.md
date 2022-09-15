@@ -431,6 +431,15 @@ $ vboxmanage list vms
 $ VBoxManage modifyvm "Ubuntu 20.04 Server" --nested-hw-virt on
 ~~~
 
+### Liberar porta CSF Centos Firewall
 
+~~~
+
+> vim /etc/csf/csf.conf
+### em TCP_IN
+### adiciona a porta 1001
+> csf -r
+
+~~~
 
 
