@@ -44,6 +44,17 @@ Insira as permissões de execução dos serviços no arquivo /etc/services segui
 Se tudo correu dentro do esperado o agente já está habilitado e funcional.
 
 ~~~
+## Liberação de porta Centos Oracle Linux Firewalld
+~~~
+
+firewall-cmd --get-active-zones 
+
+firewall-cmd --zone=public --add-port=1521/tcp --permanent 
+
+firewall-cmd --reload 
+
+~~~
+
 
 ~~~
 ##mostrar usuarios logados no servidor
