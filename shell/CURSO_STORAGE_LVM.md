@@ -193,3 +193,24 @@ aproveitaremos o ambiente anterior, do mirror:
  - lvs -a -o +devices (monitoring)
  - pvdisplay
 ~~~
+
+
+### caso real de expansão de disc, adicionando um volume de 1TB e expandindo um VG existente:
+
+~~~
+fdisk -l
+pvs
+pvcreate /dev/xvde 
+vgextend centos /dev/xvde 
+vgs
+lvs
+df -h 
+lvextend -l +100%FREE /dev/mapper/centos-root 
+df -h 
+blkid 
+xfs_growfs /dev/mapper/centos-root 
+df -h /dev/mapper/centos-root 
+~~~
+
+
+
