@@ -195,7 +195,7 @@ aproveitaremos o ambiente anterior, do mirror:
 ~~~
 
 
-### caso real de expansão de disc, adicionando um volume de 1TB e expandindo um VG existente:
+### caso real de expansão de disco, adicionando um volume de 1TB e expandindo um VG existente:
 
 ~~~
 fdisk -l
