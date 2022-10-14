@@ -8,4 +8,6 @@
 5 – w32tm /config /syncfromflags:manual /manualpeerlist:a.ntp.br
 6 – w32tm /config /update
 7 – w32tm /resync
+
+https://dicastech.info/corrigir-a-hora-do-windows-server-2008-2012/
 ~~~
