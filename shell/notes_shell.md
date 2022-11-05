@@ -452,5 +452,100 @@ $ VBoxManage modifyvm "Ubuntu 20.04 Server" --nested-hw-virt on
 > csf -r
 
 ~~~
+### FSCK
+~~~
+1. Verificando a Velocidade do Disco no Linux
+O comando 'dd' no Linux é usado para verificar o desempenho de leitura e escrita do disco na plataforma Linux. Vamos ver como o comando 'dd' é usado para verificar o desempenho de E/S.
 
+Etapa 1: Primeiro, abra o prompt de comando. Você também pode fazer o login em um servidor remoto, se necessário.
+
+Etapa 2: Para medir a taxa de transferência (throughput) do servidor (velocidade de escrita) dd if=/dev/zero of=/tmp/test1.img bs=1G count=1 oflag=dsync
+
+Etapa 3: O comando dd também é usado para verificar a latência do servidor dd if=/dev/zero of=/tmp/test2.img bs=512 count=1000 oflag=dsync
+
+Este comando avalia um simples desempenho de E/S.
+
+2. Verificação de Erros em Disco no Linux
+O "fsck" é bastante útil no sistema Linux, pois é usado para verificar erros no sistema de arquivos. Desempenha uma função semelhante ao "chkdsk" no sistema operacional Windows.
+
+Para verificar a existência de erros no sistema de arquivos Linux, o comando fsck acaba por ser muito útil frequentemente. A fim de verificar o erro e repará-lo ao mesmo tempo, use a opção "a". Fora isso, a opção "y" pode ser usada em vez de "a".
+
+$ fsck -a /dev/sdb1
+
+Para executar a verificação de erros em apenas uma partição, você pode executar o comando a partir de seu terminal:
+
+$ umount /dev/sdb1
+
+$ fsck /dev/sdb1
+
+Parte 3: Como Reparar o Disco em Linux
+No sistema operacional Linux, existe um comando poderoso, o "fsck". É usado para reparar o sistema de arquivos. É a abreviação de "File System Consistency check" (Verificação de consistência do sistema de arquivos). É muito fácil de usar. Tudo o que você precisa fazer é abrir um terminal e escrever:
+
+Fsck/dev/sdal
+
+Este comando verificará apenas a partição sda1. No entanto, este comando fsck é inutilizável em uma partição montada. Se você fizer isso, há uma alta probabilidade de que isso possa danificar o sistema. Para verificar a pasta home que está presente em uma partição diferente (por exemplo, sda2), você deve usar o seguinte comando:
+
+Umount/home
+
+Fsck/dev/sda2
+
+Nota: Para executar o comando "fsck", você precisará ter permissão de root/superuser.
+
+O comando "fsck" também pode ser usado para verificar seu disco externo, por exemplo, o cartão SD ou a pen drive.
+
+Por exemplo:
+
+umount/dev/sdb1 #pen drive
+
+sudo fsck/dev/sdb1
+
+Quando você não tiver certeza sobre qual número de partição você precisa digitalizar, use este comando:
+
+sudo fdisk -1
+
+Isso listará todas as partições disponíveis.
+
+1. Usando "fsck" Para Reparar Automaticamente o Sistema de Arquivos
+Se forem identificados erros durante a verificação do sistema de arquivos, use o comando "fsck" para reparar automaticamente o sistema de arquivos com um sinalizador -a. Por exemplo, vejamos este exemplo abaixo:
+
+fsck –a/dev/sdal
+
+Você pode usar a opção -y para executar uma função semelhante também:
+
+Fsck –y/dev/sdal1
+
+2. Reparação de Erros do Sistema de Arquivos Linux
+Às vezes, você pode encontrar mais de um erro no sistema de arquivos. Em casos como este, você pode usar o "fsck" para retificar estes erros automaticamente. Digite o seguinte:
+
+#fsck –y/dev/sdb
+
+Esta opção –y responde automaticamente "sim" a qualquer pedido dado por fsck para corrigir o erro.
+
+Além disso, você também pode utilizá-lo em todos os sistemas de arquivos sem raiz:
+
+$ fsck –AR –y
+
+3. Executando o "fsck" na Partição Raiz do Linux
+Em outros momentos, você pode precisar executar o fsck na partição raiz do seu sistema Linux. Dado que o fsck não pode ser executado quando a partição é montada, você pode tentar esta opção:
+
+Use o fsck no modo de recuperação
+Invocar fsck quando o sistema for reinicializado
+Vejamos as duas situações:
+
+4. Invocar fsck Quando O Sistema For Reiniciado
+Este é um processo fácil de concluir e tudo o que você precisa fazer é criar um arquivo designado 'forcefsck' dentro da partição raiz do sistema. Use o seguinte comando:
+
+#touch /forcefsck
+
+Ao fazer isso, você pode programar uma reinicialização do sistema. No próximo reinício, o comando fsck desempenhará sua função. Você precisa ter muito cuidado ao usar este comando. Se houver muitos inodes, este comando levará seu tempo.
+
+Depois que o sistema for reiniciado, verifique se o arquivo existe:
+
+# 1s /forcefsck
+
+Se o arquivo existir, então você pode precisar removê-lo porque o comando fsck será executado a cada vez.
+
+5. Fsck no Modo de Recuperação
+
+~~~
 
