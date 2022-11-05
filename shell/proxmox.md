@@ -96,3 +96,9 @@ https://wiki.archlinux.org/index.php/disk_cloning
 
 
 ~~~
+### Varrendo diretorio para adicionar disco migrado ou convertido
+~~~
+qm rescan --vmid 102
+~~~
+
+
