@@ -199,6 +199,9 @@ blkid
 #add essa linha no /etc/fstab
 UUID=83fef7c8-ea0a-4524-a101-d1832f4ffb9e /home/daddos/vol1 ext4 acl,user,nofail 0 0
 
+### adicionando ponto de montagem NFS
+host_ip:/home               /nfs/home      nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0
+
 #criar arquivo abaixo para não bugar a inicialização do iscsi
 vim /etc/init.d/after.local
 
