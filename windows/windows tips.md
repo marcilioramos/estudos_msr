@@ -11,3 +11,9 @@
 
 https://dicastech.info/corrigir-a-hora-do-windows-server-2008-2012/
 ~~~
+
+
+#### Quebra Senha com CD Live Ubuntu
+~~~
+https://www.top-password.com/knowledge/reset-windows-10-password-with-ubuntu.html
+~~~
