@@ -101,4 +101,12 @@ https://wiki.archlinux.org/index.php/disk_cloning
 qm rescan --vmid 102
 ~~~
 
-
+### Remover cluster 
+~~~
+systemctl stop pve-cluster corosync
+pmxcfs -l
+rm /etc/corosync/*
+rm /etc/pve/corosync.conf
+killall pmxcfs
+systemctl start pve-cluster
+~~~
