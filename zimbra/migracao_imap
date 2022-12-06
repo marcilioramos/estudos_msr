@@ -1,0 +1,8 @@
+./imapsync --host1 imap.gmail.com \
+--user1 email \
+--password1 senha \
+--ssl1 \
+--host2 mail.sescab.com \
+--user2 marcilio@mail.sescab.com \
+--password2 senha2 \
+--ssl2
