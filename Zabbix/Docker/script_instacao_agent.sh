@@ -2,7 +2,7 @@
 #
 # Comando para executado o script
 #
-# apt-get install curl git -y ; yum install curl git -y ; curl https://github.com/marcilioramos/estudos_msr/blob/main/Zabbix/Docker/script_instacao_agent.sh ; chmod +x script_instacao_agent.sh ; ./script_instacao_agent.sh "10.1.1.1, 10.10.0.0/8" 127.0.0.1 $HOSTNAME ; rm script_instacao_agent.sh
+# apt-get install curl git -y ; yum install curl git -y ; curl -O https://raw.githubusercontent.com/marcilioramos/estudos_msr/main/Zabbix/Docker/script_instacao_agent.sh ; chmod +x script_instacao_agent.sh ; ./script_instacao_agent.sh "10.1.1.1, 10.10.0.0/8" 127.0.0.1 $HOSTNAME ; rm script_instacao_agent.sh
 
 
 #
