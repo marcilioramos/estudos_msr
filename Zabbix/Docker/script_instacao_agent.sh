@@ -1,6 +1,13 @@
 #!/bin/bash
+#
+# Comando para executado o script
+#
+# curl https://github.com/marcilioramos/estudos_msr/blob/main/Zabbix/Docker/script_instacao_agent.sh ; chmod +x script_instacao_agent.sh ; ./script_instacao_agent.sh "10.1.1.1, 10.10.0.0/8" 127.0.0.1 $HOSTNAME ; rm script_instacao_agent.sh
 
+
+#
 # Set the default values for the script arguments
+
 SERVER_IP=127.0.0.1
 SERVER_ACTIVE_IP=127.0.0.1
 HOSTNAME=`hostname`
