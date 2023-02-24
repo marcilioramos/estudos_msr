@@ -1,0 +1,25 @@
+Problem
+Users trying to change their password and webmail URL redirects to mailbox server on port 8443
+
+Solution
+This type of problem occurs where public service hostname, protocol and port values are not configured.
+
+To fix this problem we have to set zimbraPublicServiceHostname, zimbraPublicServiceProtocol, and zimbraPublicServicePort on Domain or Global level configuration.
+
+Steps for Global Level Config
+su - zimbra 
+zmprov mcf zimbraPublicServiceHostname MAIL.DOMAIN.COM
+zmprov mcf zimbraPublicServiceProtocol https
+zmprov mcf zimbraPublicServicePort 443
+zmcontrol restart
+
+Steps for Domain Level Config
+su - zimbra 
+zmprov md DOMAIN.COM zimbraPublicServiceHostname MAIL.DOMAIN.COM
+zmprov md DOMAIN.COM zimbraPublicServiceProtocol https
+zmprov md DOMAIN.COM zimbraPublicServicePort 443
+zmcontrol restart
+Note: Replace DOMAIN.COM and MAIL.DOMAIN.COM with the actual value according to your environment.
+
+Above configuration also required for sharing where zimbra-proxy is configured.
+
