@@ -24,7 +24,7 @@ services:
     environment:
       ZBX_PROXYMODE: 0
       ZBX_HOSTNAME: zbxproxy-Zadara
-      ZBX_SERVER_HOST: IP DO SERVIDOR
+      ZBX_SERVER_HOST: IP DO SERVIDOR:porta
       ZBX_SERVER_PORT: 10051 PORTA USADA
       ZBX_ACTIVESERVERS: 5
       ZBX_METADATA: zabbix-proxy
