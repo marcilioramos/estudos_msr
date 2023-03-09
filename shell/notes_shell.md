@@ -552,3 +552,23 @@ Se o arquivo existir, então você pode precisar removê-lo porque o comando fsc
 
 ~~~
 
+### Limpando swap e mudando prioridade para zero
+~~~
+Verificando a prioridade do swap
+> cat /proc/sys/vm/swappiness
+## nesse nosso caso estava em 60
+
+### add parametro no fim da linnha do arquivo 
+> vim /etc/sysctl.conf 
+vm.swappiness=0
+
+## Comando para limpar a memoria SWAP e desativá-la momentaneamente
+> swapoff -a
+
+## Comando para visualizar status
+> sysctl -p
+
+## Comando para reativar a SWAP com a prioridade alterada.
+swapon -a
+~~~
+
