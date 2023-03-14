@@ -571,4 +571,13 @@ vm.swappiness=0
 ## Comando para reativar a SWAP com a prioridade alterada.
 swapon -a
 ~~~
+### IOTOP
+~~~
+# iotop --only
 
+Para criar monitoramento e LOGs para IOTOP
+vi /etc/cron.d/iotop
+And add the following lines into file:
+MAILTO=username@domain.com
+* * * * * root iotop -botqqq --iter=3 >> /var/log/iotop
+~~~
