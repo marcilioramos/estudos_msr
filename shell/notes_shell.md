@@ -581,3 +581,7 @@ And add the following lines into file:
 MAILTO=username@domain.com
 * * * * * root iotop -botqqq --iter=3 >> /var/log/iotop
 ~~~
+### Mostrar conteudo de arquivo sem mostrar linhas com comentário e linha em branco
+~~~
+cat arquivo | grep -v '^#' | grep -v '^$'
+~~~
