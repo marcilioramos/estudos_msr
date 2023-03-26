@@ -1,3 +1,12 @@
+#!/bin/python3
+
+############################################################################
+# Autor: Marcilio Ramos
+# Data: 26 03 2023
+# Fim: Adicionar um lista de hosts, a partir de um arquivo XLS, com colunas Template, IP e HOSTNAME
+############################################################################
+
+
 import pandas as pd
 from pyzabbix import ZabbixAPI
 
