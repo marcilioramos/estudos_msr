@@ -1,0 +1,492 @@
+zabbix_export:
+  version: '6.0'
+  date: '2023-04-25T21:43:35Z'
+  groups:
+    -
+      uuid: 7df96b18c230490a9a0a9e2307226338
+      name: Templates
+  templates:
+    -
+      uuid: e1f5cc5f48c44b70bc072939aabfb0a5
+      template: 'Template Xen Orchestra'
+      name: 'Template Xen Orchestra'
+      groups:
+        -
+          name: Templates
+      items:
+        -
+          uuid: 91e704d1c0c843ba8bf7e04174180c2f
+          name: 'Master Item Storage'
+          type: EXTERNAL
+          key: 'xen_orchestra.js[username={$USERNAME}, password={$PASSWORD}, url={$URL}, collect=disk]'
+          delay: 1h
+          history: '0'
+          trends: '0'
+          value_type: TEXT
+      discovery_rules:
+        -
+          uuid: c93fe372938b4daca27d365d7199c323
+          name: 'Discover STORAGE'
+          type: EXTERNAL
+          key: 'xen_orchestra.js[username={$USERNAME}, password={$PASSWORD}, url={$URL}, discovery=disk]'
+          delay: 1d
+          filter:
+            conditions:
+              -
+                macro: '{#SRTYPE}'
+                value: ext
+                formulaid: A
+              -
+                macro: '{#SRTYPE}'
+                value: lvm
+                formulaid: B
+              -
+                macro: '{#SRTYPE}'
+                value: nfs
+                formulaid: C
+          item_prototypes:
+            -
+              uuid: 96986c1ca4574b5380e8ea1e2467cf66
+              name: 'ESPAÇO LIVRE em {#POOLNAME}'
+              type: CALCULATED
+              key: 'espacolivre_em_[{#UUID}]'
+              delay: 10m
+              value_type: FLOAT
+              units: '%'
+              params: |
+                100-(100* 
+                (
+                (last(//xen.storage.usage[{#UUID}])
+                /
+                last(//xen.storage.size[{#UUID}]))
+                )
+                )
+            -
+              uuid: 724de9fd27504d1782d7c249797bafcf
+              name: 'Storage Free {#POOLNAME} {#UUID}'
+              type: CALCULATED
+              key: 'Storage_Free[{#UUID}]'
+              units: B
+              params: |
+                last(//xen.storage.size[{#UUID}])
+                -
+                last(//xen.storage.physical_usage[{#UUID}])
+            -
+              uuid: 048ad0610a3c467abb0d09badc2e2b6a
+              name: 'Storage physical_usage {#POOLNAME}'
+              type: DEPENDENT
+              key: 'xen.storage.physical_usage[{#UUID}]'
+              delay: '0'
+              units: B
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$[?(@.uuid=="{#UUID}")].physical_usage.first()'
+              master_item:
+                key: 'xen_orchestra.js[username={$USERNAME}, password={$PASSWORD}, url={$URL}, collect=disk]'
+              tags:
+                -
+                  tag: Application
+                  value: '{#POOLNAME}'
+            -
+              uuid: 07a944f05e7a4860bdd25558188ad96b
+              name: 'Storage Total {#POOLNAME}'
+              type: DEPENDENT
+              key: 'xen.storage.size[{#UUID}]'
+              delay: '0'
+              units: B
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$[?(@.uuid=="{#UUID}")].size.first()'
+              master_item:
+                key: 'xen_orchestra.js[username={$USERNAME}, password={$PASSWORD}, url={$URL}, collect=disk]'
+              tags:
+                -
+                  tag: Application
+                  value: '{#POOLNAME}'
+            -
+              uuid: 685895c3ed4d4137b99661259750e2b8
+              name: 'Storage Usage {#POOLNAME}'
+              type: DEPENDENT
+              key: 'xen.storage.usage[{#UUID}]'
+              delay: '0'
+              units: B
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$[?(@.uuid=="{#UUID}")].usage.first()'
+              master_item:
+                key: 'xen_orchestra.js[username={$USERNAME}, password={$PASSWORD}, url={$URL}, collect=disk]'
+              tags:
+                -
+                  tag: Application
+                  value: '{#POOLNAME}'
+        -
+          uuid: 7488c53deb124227a722a53fced7011f
+          name: 'Discover HOSTS'
+          type: EXTERNAL
+          key: 'xen_orchestra.js[username={$USERNAME}, password={$PASSWORD}, url={$URL}, discovery=host]'
+          delay: 1d
+          item_prototypes:
+            -
+              uuid: 2858c245e93343ccaf4cf362c58a366d
+              name: 'CPU_AVG_HOST {#HOSTNAME}'
+              type: DEPENDENT
+              key: 'ColetaHOST_cpuavg[{#HOSTNAME}]'
+              delay: '0'
+              value_type: FLOAT
+              units: '%'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - $.cpu_avg
+              master_item:
+                key: 'xen_orchestra.js[username={$USERNAME}, password={$PASSWORD}, url={$URL}, collect=host, host={#UUID}]'
+            -
+              uuid: 3054528c158d41d9b2e32c1e55ed372f
+              name: 'LOAD_HOST {#HOSTNAME}'
+              type: DEPENDENT
+              key: 'HOST_load[{#HOSTNAME}]'
+              delay: '0'
+              value_type: FLOAT
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - $.load
+              master_item:
+                key: 'xen_orchestra.js[username={$USERNAME}, password={$PASSWORD}, url={$URL}, collect=host, host={#UUID}]'
+            -
+              uuid: c974d96efaaf47c399abd717bc4b53a8
+              name: 'MEMORY_SIZE_HOST {#HOSTNAME}'
+              type: DEPENDENT
+              key: 'MEMORY_SIZE_HOST[{#HOSTNAME}]'
+              delay: '0'
+              value_type: FLOAT
+              units: B
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - $.memory.size
+              master_item:
+                key: 'xen_orchestra.js[username={$USERNAME}, password={$PASSWORD}, url={$URL}, collect=host, host={#UUID}]'
+            -
+              uuid: 775cc723587c4b3ea118e49d4ea6e31b
+              name: 'MEMORY_USAGE_HOST {#HOSTNAME}'
+              type: DEPENDENT
+              key: 'MEMORY_USAGE_HOST[{#HOSTNAME}]'
+              delay: '0'
+              value_type: FLOAT
+              units: B
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - $.memory.usage
+              master_item:
+                key: 'xen_orchestra.js[username={$USERNAME}, password={$PASSWORD}, url={$URL}, collect=host, host={#UUID}]'
+            -
+              uuid: 1bac24fd7f2341e0974053d4357cff3f
+              name: 'Coleta HOST {#HOSTNAME}'
+              type: EXTERNAL
+              key: 'xen_orchestra.js[username={$USERNAME}, password={$PASSWORD}, url={$URL}, collect=host, host={#UUID}]'
+              delay: 10m
+              history: '0'
+              trends: '0'
+              value_type: TEXT
+              tags:
+                -
+                  tag: Application
+                  value: HOST
+                -
+                  tag: Application
+                  value: '{#HOSTNAME}'
+        -
+          uuid: 025eac2af0f14675b8f8564f1df004e7
+          name: 'Discover VM'
+          type: EXTERNAL
+          key: 'xen_orchestra.js[username={$USERNAME}, password={$PASSWORD}, url={$URL}, discovery=vm]'
+          delay: 1d
+          filter:
+            conditions:
+              -
+                macro: '{#POWERSTATE}'
+                value: Running
+                formulaid: A
+          item_prototypes:
+            -
+              uuid: cb182df7bee0478d8d49a5bc276b6e81
+              name: 'Interface 0 RX - {#HOSTNAME}'
+              type: DEPENDENT
+              key: 'ColetaVMRedeInterface0RX[{#HOSTNAME}]'
+              delay: '0'
+              value_type: FLOAT
+              units: B
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.network[0]..rx'
+                -
+                  type: STR_REPLACE
+                  parameters:
+                    - '['
+                    - ''
+                -
+                  type: STR_REPLACE
+                  parameters:
+                    - ']'
+                    - ''
+              master_item:
+                key: 'xen_orchestra.js[username={$USERNAME}, password={$PASSWORD}, url={$URL}, collect=vm, vm={#UUID}]'
+            -
+              uuid: de96c494f13e477e902b57f2440bf22f
+              name: 'Interface 0 TX - {#HOSTNAME}'
+              type: DEPENDENT
+              key: 'ColetaVMRedeInterface0TX[{#HOSTNAME}]'
+              delay: '0'
+              value_type: FLOAT
+              units: B
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.network[0]..tx'
+                -
+                  type: STR_REPLACE
+                  parameters:
+                    - '['
+                    - ''
+                -
+                  type: STR_REPLACE
+                  parameters:
+                    - ']'
+                    - ''
+              master_item:
+                key: 'xen_orchestra.js[username={$USERNAME}, password={$PASSWORD}, url={$URL}, collect=vm, vm={#UUID}]'
+            -
+              uuid: faa72d606e6047ea9f399e7d9ab4e305
+              name: 'Interface 1 RX - {#HOSTNAME}'
+              type: DEPENDENT
+              key: 'ColetaVMRedeInterface1RX[{#HOSTNAME}]'
+              delay: '0'
+              value_type: FLOAT
+              units: B
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.network[1]..rx'
+                -
+                  type: STR_REPLACE
+                  parameters:
+                    - '['
+                    - ''
+                -
+                  type: STR_REPLACE
+                  parameters:
+                    - ']'
+                    - ''
+              master_item:
+                key: 'xen_orchestra.js[username={$USERNAME}, password={$PASSWORD}, url={$URL}, collect=vm, vm={#UUID}]'
+            -
+              uuid: d123dfc080aa478db701b0155c69c3a8
+              name: 'Interface 1 TX - {#HOSTNAME}'
+              type: DEPENDENT
+              key: 'ColetaVMRedeInterface1TX[{#HOSTNAME}]'
+              delay: '0'
+              value_type: FLOAT
+              units: B
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.network[1]..tx'
+                -
+                  type: STR_REPLACE
+                  parameters:
+                    - '['
+                    - ''
+                -
+                  type: STR_REPLACE
+                  parameters:
+                    - ']'
+                    - ''
+              master_item:
+                key: 'xen_orchestra.js[username={$USERNAME}, password={$PASSWORD}, url={$URL}, collect=vm, vm={#UUID}]'
+            -
+              uuid: 5cffa96ba30b4c4285a488918ac8ba3d
+              name: 'Interface 2 RX - {#HOSTNAME}'
+              type: DEPENDENT
+              key: 'ColetaVMRedeInterface2RX[{#HOSTNAME}]'
+              delay: '0'
+              value_type: FLOAT
+              units: B
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.network[2]..rx'
+                -
+                  type: STR_REPLACE
+                  parameters:
+                    - '['
+                    - ''
+                -
+                  type: STR_REPLACE
+                  parameters:
+                    - ']'
+                    - ''
+              master_item:
+                key: 'xen_orchestra.js[username={$USERNAME}, password={$PASSWORD}, url={$URL}, collect=vm, vm={#UUID}]'
+            -
+              uuid: 9a0cad8c87894c0b959b3a21782e617f
+              name: 'Interface 2 TX - {#HOSTNAME}'
+              type: DEPENDENT
+              key: 'ColetaVMRedeInterface2TX[{#HOSTNAME}]'
+              delay: '0'
+              value_type: FLOAT
+              units: B
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.network[2]..tx'
+                -
+                  type: STR_REPLACE
+                  parameters:
+                    - '['
+                    - ''
+                -
+                  type: STR_REPLACE
+                  parameters:
+                    - ']'
+                    - ''
+              master_item:
+                key: 'xen_orchestra.js[username={$USERNAME}, password={$PASSWORD}, url={$URL}, collect=vm, vm={#UUID}]'
+            -
+              uuid: c905916f1f3943d894b017f3ab570937
+              name: 'Média de Utilização de CPU {#HOSTNAME}'
+              type: DEPENDENT
+              key: 'vm.cpu.usage[{#UUID}]'
+              delay: '0'
+              value_type: FLOAT
+              units: '%'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - $.cpu_avg
+              master_item:
+                key: 'xen_orchestra.js[username={$USERNAME}, password={$PASSWORD}, url={$URL}, collect=vm, vm={#UUID}]'
+              tags:
+                -
+                  tag: Application
+                  value: '{#HOSTNAME}'
+            -
+              uuid: 9e8714f56a9b4b9ba67e4cf5b4662844
+              name: 'Memoria Livre {#HOSTNAME}'
+              type: DEPENDENT
+              key: 'vm.memory.free[{#UUID}]'
+              delay: '0'
+              units: B
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - $.memory.free
+              master_item:
+                key: 'xen_orchestra.js[username={$USERNAME}, password={$PASSWORD}, url={$URL}, collect=vm, vm={#UUID}]'
+              tags:
+                -
+                  tag: Application
+                  value: '{#HOSTNAME}'
+            -
+              uuid: 5fc849e7c3a94d2ca9ef27271fd83fed
+              name: 'Total de Memoria {#HOSTNAME}'
+              type: DEPENDENT
+              key: 'vm.memory.size[{#UUID}]'
+              delay: '0'
+              units: B
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - $.memory.size
+              master_item:
+                key: 'xen_orchestra.js[username={$USERNAME}, password={$PASSWORD}, url={$URL}, collect=vm, vm={#UUID}]'
+              tags:
+                -
+                  tag: Application
+                  value: '{#HOSTNAME}'
+            -
+              uuid: baa21f03cdd74396adfe8bc377532e1d
+              name: 'Estado da VM {#HOSTNAME}'
+              type: DEPENDENT
+              key: 'vm.powerstate[{#UUID}]'
+              delay: '0'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - $.power_state
+                -
+                  type: STR_REPLACE
+                  parameters:
+                    - Running
+                    - '1'
+                -
+                  type: STR_REPLACE
+                  parameters:
+                    - Stoped
+                    - '0'
+                -
+                  type: STR_REPLACE
+                  parameters:
+                    - Halted
+                    - '0'
+              master_item:
+                key: 'xen_orchestra.js[username={$USERNAME}, password={$PASSWORD}, url={$URL}, collect=vm, vm={#UUID}]'
+              tags:
+                -
+                  tag: Application
+                  value: '{#HOSTNAME}'
+              trigger_prototypes:
+                -
+                  uuid: 03d135b86d854a6ca4e0c96ec3272a0e
+                  expression: |
+                    nodata(/Template Xen Orchestra/vm.powerstate[{#UUID}],15m)=1
+                    or
+                    last(/Template Xen Orchestra/vm.powerstate[{#UUID}],#5)=0
+                  name: 'VM {#HOSTNAME} - Indisponível'
+                  priority: HIGH
+            -
+              uuid: 84162e67b6cc4863a38e772d1c1377f2
+              name: 'Coleta VM {#HOSTNAME}'
+              type: EXTERNAL
+              key: 'xen_orchestra.js[username={$USERNAME}, password={$PASSWORD}, url={$URL}, collect=vm, vm={#UUID}]'
+              delay: 5m
+              history: '0'
+              trends: '0'
+              value_type: TEXT
+              tags:
+                -
+                  tag: Application
+                  value: VM
+                -
+                  tag: Application
+                  value: '{#HOSTNAME}'
+      macros:
+        -
+          macro: '{$PASSWORD}'
+          type: SECRET_TEXT
+        -
+          macro: '{$URL}'
+        -
+          macro: '{$USERNAME}'
