@@ -6,6 +6,24 @@
 # Versão: 1.0
 ##########################################################################################################
 
+##########################################################################################################
+# Pre requisitos para funcionar o monitoramento:
+# Instalar os pacotes:
+#
+# --- like debian
+# apt install wget smartmontools sudo
+#
+# --- like red-hat
+#
+# dnf install smartmontools sudo visudo wget 
+#
+# --- editar o arquivo: 
+# nano /etc/sudoers
+# adicionar a linha: "zabbix ALL=(ALL) NOPASSWD:/usr/sbin/smartctl", dando permissão para o agente zabbix ler o discos.
+##########################################################################################################
+
+
+
 # Função para instalar o Zabbix Agent 2 no Red Hat
 install_zabbix_agent_redhat() {
     if rpm -qa | grep -q zabbix-agent; then
