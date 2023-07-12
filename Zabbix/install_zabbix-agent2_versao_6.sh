@@ -22,7 +22,7 @@
 # adicionar a linha: "zabbix ALL=(ALL) NOPASSWD:/usr/sbin/smartctl", dando permissão para o agente zabbix ler o discos.
 ##########################################################################################################
 
-
+cat /etc/os-release
 
 # Função para instalar o Zabbix Agent 2 no Red Hat
 install_zabbix_agent_redhat() {
