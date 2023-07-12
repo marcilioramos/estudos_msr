@@ -166,3 +166,5 @@ case $sistema_operacional in
         install_zabbix_agent_ubuntu
        ;;
 esac
+
+systemctl status zabbix-agent2
