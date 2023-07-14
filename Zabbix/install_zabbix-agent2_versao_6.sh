@@ -3,7 +3,7 @@
 # Descrição: Script de instalação do agente Zabbix 2 para a versão 6 LTS nos Sistemas Operacionais Debian, Red Hat e Ubuntu
 # Autor: Marcilio Ramos
 # Data: 30.06.2023
-# Versão: 1.0
+# Versão: 1.1
 ##########################################################################################################
 
 # Função para instalar o Zabbix Agent 2 no Red Hat
@@ -29,11 +29,16 @@ install_zabbix_agent_redhat() {
         echo "===================================================="
         cd /tmp/
         wget -O zabbixagent.rpm "https://repo.zabbix.com/zabbix/6.0/rhel/$versao/x86_64/zabbix-agent2-6.0.9-release1.el$versao.x86_64.rpm"
-        yum localinstall /tmp/zabbixagent.rpm -y
-        sed -i "s/Server=.*/Server=$zabbix_server/g" /etc/zabbix/zabbix_agent2.conf
-        sed -i "s/Hostname=.*/Hostname=$Hostname/g" /etc/zabbix/zabbix_agent2.conf
-        systemctl enable zabbix-agent2
-        systemctl start zabbix-agent2
+        if [ -f "/tmp/zabbixagent.rpm" ]; then
+            yum localinstall /tmp/zabbixagent.rpm -y
+            sed -i "s/Server=.*/Server=$zabbix_server/g" /etc/zabbix/zabbix_agent2.conf
+            sed -i "s/Hostname=.*/Hostname=$Hostname/g" /etc/zabbix/zabbix_agent2.conf
+            systemctl enable zabbix-agent2
+            systemctl start zabbix-agent2
+        else
+            echo "Falha ao baixar o pacote do Zabbix Agent 2 para Red Hat."
+            exit 1
+        fi
     fi
 }
 
@@ -58,11 +63,16 @@ install_zabbix_agent_debian() {
         echo "===================================================="
         cd /tmp/
         wget -O zabbixagent.deb "https://repo.zabbix.com/zabbix/6.0/debian/pool/main/z/zabbix/zabbix-agent2_6.0.19-1%2Bdebian$versao\_amd64.deb"
-        dpkg -i /tmp/zabbixagent.deb
-        sed -i "s/Server=.*/Server=$zabbix_server/g" /etc/zabbix/zabbix_agent2.conf
-        sed -i "s/Hostname=.*/Hostname=$Hostname/g" /etc/zabbix/zabbix_agent2.conf
-        systemctl enable zabbix-agent2
-        systemctl start zabbix-agent2
+        if [ -f "/tmp/zabbixagent.deb" ]; then
+            dpkg -i /tmp/zabbixagent.deb
+            sed -i "s/Server=.*/Server=$zabbix_server/g" /etc/zabbix/zabbix_agent2.conf
+            sed -i "s/Hostname=.*/Hostname=$Hostname/g" /etc/zabbix/zabbix_agent2.conf
+            systemctl enable zabbix-agent2
+            systemctl start zabbix-agent2
+        else
+            echo "Falha ao baixar o pacote do Zabbix Agent 2 para Debian."
+            exit 1
+        fi
     fi
 }
 
@@ -87,11 +97,16 @@ install_zabbix_agent_ubuntu() {
         echo "===================================================="
         cd /tmp/
         wget -O zabbixagent.deb "https://repo.zabbix.com/zabbix/6.0/ubuntu/pool/main/z/zabbix/zabbix-agent2_6.0.9-1%2Bubuntu$versao\_amd64.deb"
-        dpkg -i /tmp/zabbixagent.deb
-        sed -i "s/Server=.*/Server=$zabbix_server/g" /etc/zabbix/zabbix_agent2.conf
-        sed -i "s/Hostname=.*/Hostname=$Hostname/g" /etc/zabbix/zabbix_agent2.conf
-        systemctl enable zabbix-agent2
-        systemctl start zabbix-agent2
+        if [ -f "/tmp/zabbixagent.deb" ]; then
+            dpkg -i /tmp/zabbixagent.deb
+            sed -i "s/Server=.*/Server=$zabbix_server/g" /etc/zabbix/zabbix_agent2.conf
+            sed -i "s/Hostname=.*/Hostname=$Hostname/g" /etc/zabbix/zabbix_agent2.conf
+            systemctl enable zabbix-agent2
+            systemctl start zabbix-agent2
+        else
+            echo "Falha ao baixar o pacote do Zabbix Agent 2 para Ubuntu."
+            exit 1
+        fi
     fi
 }
 
@@ -129,14 +144,3 @@ read -p "Informe o endereço do Zabbix Server: " zabbix_server
 # Verifica o sistema operacional e chama a função correta para instalação
 case $sistema_operacional in
     "1")
-        install_zabbix_agent_redhat
-        ;;
-    "2")
-        install_zabbix_agent_debian
-        ;;
-    "3")
-        install_zabbix_agent_ubuntu
-        ;;
-esac
-
-systemctl status zabbix-agent2
