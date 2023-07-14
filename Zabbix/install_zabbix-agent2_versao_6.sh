@@ -62,8 +62,8 @@ install_zabbix_agent_debian() {
         echo "Instalando o Zabbix Agent 2 no Debian..."
         echo "===================================================="
         cd /tmp/
-
-    case $versao in
+        
+        case $versao in
     "9")
        wget -O zabbixagent.deb "https://repo.zabbix.com/zabbix/6.0/debian/pool/main/z/zabbix/zabbix-agent2_6.0.17-1%2Bdebian9_amd64.deb"
         ;;
@@ -86,6 +86,11 @@ esac
         
         if [ -f "/tmp/zabbixagent.deb" ]; then
             dpkg -i /tmp/zabbixagent.deb
+            
+            apt update
+            apt install sudo -y
+            apt install smartmontools -y
+            
             sed -i "s/Server=.*/Server=$zabbix_server/g" /etc/zabbix/zabbix_agent2.conf
             sed -i "s/Hostname=.*/Hostname=$Hostname/g" /etc/zabbix/zabbix_agent2.conf
             systemctl enable zabbix-agent2
