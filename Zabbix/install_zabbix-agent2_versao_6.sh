@@ -187,3 +187,14 @@ read -p "Informe o endereço do Zabbix Server: " zabbix_server
 # Verifica o sistema operacional e chama a função correta para instalação
 case $sistema_operacional in
     "1")
+            install_zabbix_agent_redhat
+        ;;
+    "2")
+        install_zabbix_agent_debian
+        ;;
+    "3")
+        install_zabbix_agent_ubuntu
+        ;;
+esac
+
+systemctl status zabbix-agent2
