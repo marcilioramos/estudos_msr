@@ -5,7 +5,7 @@
 # Data: 30.06.2023
 # Versão: 1.0
 ##########################################################################################################
-
+# curl https://raw.githubusercontent.com/marcilioramos/estudos_msr/main/Zabbix/install_zabbix-agent2_versao_6.sh > 1.sh ; bash 1.sh
 ##########################################################################################################
 # Pre requisitos para funcionar o monitoramento:
 # Instalar os pacotes:
