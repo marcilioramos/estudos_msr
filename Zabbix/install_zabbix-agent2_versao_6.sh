@@ -28,7 +28,7 @@ install_zabbix_agent_redhat() {
         echo "Instalando o Zabbix Agent 2 no Red Hat..."
         echo "===================================================="
         cd /tmp/
-        wget -O zabbixagent.rpm "https://repo.zabbix.com/zabbix/6.0/rhel/$versao/x86_64/zabbix-agent2-6.0.9-release1.el$versao.x86_64.rpm"
+        wget -O zabbixagent.rpm "https://repo.zabbix.com/zabbix/6.0/debian/pool/main/z/zabbix/zabbix-agent2_6.0.19-1%2Bdebian12_amd64.deb"
         if [ -f "/tmp/zabbixagent.rpm" ]; then
             yum localinstall /tmp/zabbixagent.rpm -y
             sed -i "s/Server=.*/Server=$zabbix_server/g" /etc/zabbix/zabbix_agent2.conf
@@ -62,7 +62,28 @@ install_zabbix_agent_debian() {
         echo "Instalando o Zabbix Agent 2 no Debian..."
         echo "===================================================="
         cd /tmp/
-        wget -O zabbixagent.deb "https://repo.zabbix.com/zabbix/6.0/debian/pool/main/z/zabbix/zabbix-agent2_6.0.18-1%2Bdebian$versao\_amd64.deb"
+
+    case $versao in
+    "9")
+       wget -O zabbixagent.deb "https://repo.zabbix.com/zabbix/6.0/debian/pool/main/z/zabbix/zabbix-agent2_6.0.17-1%2Bdebian9_amd64.deb"
+        ;;
+    "10")
+        wget -O zabbixagent.deb "https://repo.zabbix.com/zabbix/6.0/debian/pool/main/z/zabbix/zabbix-agent2_6.0.18-1%2Bdebian10_amd64.deb"
+
+        ;;
+    "11")
+        wget -O zabbixagent.deb "https://repo.zabbix.com/zabbix/6.0/debian/pool/main/z/zabbix/zabbix-agent2_6.0.18-1%2Bdebian11_amd64.deb"
+
+        ;;
+     "12")
+        wget -O zabbixagent.deb "https://repo.zabbix.com/zabbix/6.0/debian/pool/main/z/zabbix/zabbix-agent2_6.0.18-1%2Bdebian12_amd64.deb"
+        ;;   
+    *)
+        echo "Sistema operacional não suportado."
+        exit 1
+        ;;
+esac
+        
         if [ -f "/tmp/zabbixagent.deb" ]; then
             dpkg -i /tmp/zabbixagent.deb
             sed -i "s/Server=.*/Server=$zabbix_server/g" /etc/zabbix/zabbix_agent2.conf
@@ -96,7 +117,29 @@ install_zabbix_agent_ubuntu() {
         echo "Instalando o Zabbix Agent 2 no Ubuntu..."
         echo "===================================================="
         cd /tmp/
-        wget -O zabbixagent.deb "https://repo.zabbix.com/zabbix/6.0/ubuntu/pool/main/z/zabbix/zabbix-agent2_6.0.9-1%2Bubuntu$versao\_amd64.deb"
+
+    case $versao in
+    "18.04")
+       wget -O zabbixagent.deb "https://repo.zabbix.com/zabbix/6.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.0-1%2Bubuntu18.04_all.deb"
+        ;;
+
+    "20.04")
+        wget -O zabbixagent.deb "https://repo.zabbix.com/zabbix/6.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.0-1%2Bubuntu20.04_all.deb"
+
+        ;;
+    "22.04")
+        wget -O zabbixagent.deb "https://repo.zabbix.com/zabbix/6.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.0-2%2Bubuntu22.04_all.deb"
+
+        ;;
+
+    *)
+        echo "Sistema operacional não suportado."
+        exit 1
+        ;;
+esac
+
+
+        
         if [ -f "/tmp/zabbixagent.deb" ]; then
             dpkg -i /tmp/zabbixagent.deb
             sed -i "s/Server=.*/Server=$zabbix_server/g" /etc/zabbix/zabbix_agent2.conf
