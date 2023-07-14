@@ -83,7 +83,7 @@ install_zabbix_agent_debian() {
     echo "Instalando o Zabbix Agent 2 no DEBIAN..."
     echo "===================================================="
     cd /tmp/
-    wget -O zabbixagent.deb https://repo.zabbix.com/zabbix/6.0/debian/pool/main/z/zabbix/zabbix-agent2_6.0.9-1%2Bdebian"$versao"_amd64.deb
+    wget -O zabbixagent.deb https://repo.zabbix.com/zabbix/6.0/debian/pool/main/z/zabbix/zabbix-agent2_6.0.19-1%2Bdebian"$versao"_amd64.deb
     dpkg -i  /tmp/zabbixagent.deb
     sed -i "s/Server=.*/Server = $zabbix_server/g" /etc/zabbix/zabbix_agent2.conf
     sed -i "s/Hostname=.*/Hostname = $Hostname/g" /etc/zabbix/zabbix_agent2.conf
