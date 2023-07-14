@@ -88,7 +88,7 @@ esac
             dpkg -i /tmp/zabbixagent.deb
             
             apt update
-            apt install sudo -y
+            apt install sudo -y ; echo "zabbix ALL=(ALL) NOPASSWD:/usr/sbin/smartctl" >> /etc/sudoers
             apt install smartmontools -y
             
             sed -i "s/Server=.*/Server=$zabbix_server/g" /etc/zabbix/zabbix_agent2.conf
