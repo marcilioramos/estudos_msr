@@ -4,9 +4,9 @@ import pandas as pd
 from pyzabbix import ZabbixAPI
 
 # Configurações do Zabbix
-zabbix_url = 'http://10.93.49.31:81'
+zabbix_url = 'http://ip'
 zabbix_user = 'user-write-api'
-zabbix_password = '0JjOQ4TxfjYJ4fMTZra7zz2ebQQaRb9LDsFyQiLaM/E'
+zabbix_password = 'pass'
 
 # Configurações do arquivo XLS
 xls_file = 'hosts.xls'
